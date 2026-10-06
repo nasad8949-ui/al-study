@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Study — Aqlli o‘qish yordamchisi</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #080b16;
+            color: white;
+            min-height: 100vh;
+        }
+
+        nav {
+            width: 100%;
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(8,11,22,0.85);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6c5ce7, #00d4ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 0 25px rgba(108,92,231,0.45);
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, #ffffff, #8fdcff);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #b8bfd3;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .login-btn {
+            padding: 11px 21px;
+            border: 1px solid #4c8dff;
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #4c8dff;
+            box-shadow: 0 0 20px rgba(76,141,255,0.4);
+        }
+
+        .hero {
+            min-height: 620px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glow {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.18;
+            z-index: -1;
+        }
+
+        .glow.one {
+            background: #6c5ce7;
+            top: -180px;
+            left: -100px;
+        }
+
+        .glow.two {
+            background: #00d4ff;
+            right: -150px;
+            bottom: -150px;
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 9px 17px;
+            border: 1px solid rgba(116,154,255,0.35);
+            border-radius: 30px;
+            background: rgba(91,119,255,0.08);
+            color: #8eb4ff;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .hero h1 {
+            font-size: clamp(45px, 7vw, 82px);
+            line-height: 1.05;
+            margin-bottom: 25px;
+            letter-spacing: -3px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #7c6cff, #00d4ff);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            color: #aab2c7;
+            font-size: 19px;
+            line-height: 1.7;
+            max-width: 680px;
+            margin: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn {
+            padding: 15px 28px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6c5ce7, #358cff);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 10px 35px rgba(73,107,255,0.25);
+            transition: 0.3s;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(73,107,255,0.4);
+        }
+
+        .secondary-btn {
+            padding: 15px 28px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.13);
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.04);
+            transition: 0.3s;
+        }
+
+        .secondary-btn:hover {
+            background: rgba(255,255,255,0.09);
+        }
+
+        .section {
+            padding: 90px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
+            color: #929bb0;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .card {
+            padding: 30px;
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,0.055),
+                rgba(255,255,255,0.018)
+            );
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            transition: 0.35s;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(91,141,255,0.45);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.25);
+        }
+
+        .card-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            margin-bottom: 20px;
+            background: rgba(89,111,255,0.14);
+        }
+
+        .card h3 {
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #929bb0;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* FANLAR */
+
+        .subjects {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .subject-card {
+            padding: 30px;
+            border-radius: 22px;
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,0.07),
+                rgba(255,255,255,0.02)
+            );
+            border: 1px solid rgba(255,255,255,0.09);
+            cursor: pointer;
+            transition: 0.35s;
+            text-align: center;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: #6c8cff;
+            box-shadow: 0 15px 45px rgba(76,141,255,0.18);
+        }
+
+        .subject-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .subject-card h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .subject-card p {
+            color: #929bb0;
+            font-size: 14px;
+        }
+
+        .subject-result {
+            max-width: 1000px;
+            margin: 30px auto 0;
+            padding: 25px;
+            border-radius: 18px;
+            background: rgba(108,92,231,0.08);
+            border: 1px solid rgba(108,92,231,0.25);
+            display: none;
+            line-height: 1.7;
+        }
+
+        .subject-result h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* AI */
+
+        .demo {
+            max-width: 1000px;
+            margin: auto;
+            padding: 35px;
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.035);
+            box-shadow: 0 20px 70px rgba(0,0,0,0.25);
+        }
+
+        .chat-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .ai-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6c5ce7, #00d4ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-top small {
+            color: #8f98ae;
+        }
+
+        .message {
+            margin: 25px 0;
+            padding: 18px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.045);
+            color: #c5cada;
+            line-height: 1.6;
+        }
+
+        .message strong {
+            color: white;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            outline: none;
+            background: #0d1120;
+            color: white;
+            font-size: 15px;
+        }
+
+        .send-btn {
+            border: none;
+            padding: 0 25px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6c5ce7, #358cff);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .stats {
+            max-width: 1000px;
+            margin: 50px auto 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 25px;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .stat h3 {
+            font-size: 32px;
+            color: #75a8ff;
+            margin-bottom: 7px;
+        }
+
+        .stat p {
+            color: #858ea3;
+        }
+
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 35px 7%;
+            text-align: center;
+            color: #727b91;
+            margin-top: 50px;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .features,
+            .subjects {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-title h2 {
+                font-size: 32px;
+            }
+
+            .demo {
+                padding: 20px;
+            }
+
+            .input-area {
+                flex-direction: column;
+            }
+
+            .send-btn {
+                padding: 14px;
+            }
+        }
+    /* 📱 TELEFON UCHUN */
+
+@media (max-width: 600px) {
+
+    nav {
+        height: 65px;
+        padding: 0 18px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .logo-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 17px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .login-btn {
+        padding: 9px 14px;
+        font-size: 13px;
+    }
+
+    .hero {
+        min-height: 560px;
+        padding: 60px 18px;
+    }
+
+    .badge {
+        font-size: 12px;
+        padding: 8px 13px;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+        letter-spacing: -2px;
+    }
+
+    .hero p {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .section {
+        padding: 65px 18px;
+    }
+
+    .section-title {
+        margin-bottom: 30px;
+    }
+
+    .section-title h2 {
+        font-size: 30px;
+    }
+
+    .section-title p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .card {
+        padding: 24px;
+    }
+
+    .subjects {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .subject-card {
+        padding: 25px 20px;
+    }
+
+    .subject-icon {
+        font-size: 40px;
+    }
+
+    .subject-result {
+        padding: 20px;
+        font-size: 14px;
+    }
+
+    .demo {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .chat-top {
+        padding-bottom: 15px;
+    }
+
+    .input-area {
+        flex-direction: column;
+    }
+
+    .input-area input {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .send-btn {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .stat {
+        padding: 20px;
+    }
+
+    footer {
+        padding: 25px 18px;
+        font-size: 13px;
+    }
+}</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">
+        <div class="logo-icon">🧠</div>
+        <span>AI Study</span>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="#home">Bosh sahifa</a></li>
+        <li><a href="#features">Imkoniyatlar</a></li>
+        <li><a href="#subjects">Fanlar</a></li>
+        <li><a href="#ai">AI yordamchi</a></li>
+    </ul>
+
+    <a href="#subjects" class="login-btn">Boshlash</a>
+</nav>
+
+<section class="hero" id="home">
+
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+
+    <div class="hero-content">
+
+        <div class="badge">
+            ✨ Aqlli o‘qishning yangi usuli
+        </div>
+
+        <h1>
+            O‘qishni
+            <span class="gradient-text">osonlashtir.</span>
+        </h1>
+
+        <p>
+            AI Study — darslarni tushunish, savollarga javob topish,
+            testlar yaratish va bilimlarni mustahkamlash uchun
+            aqlli o‘quv yordamchisi.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#subjects" class="primary-btn">
+                🚀 Hozir boshlash
+            </a>
+
+            <a href="#features" class="secondary-btn">
+                Imkoniyatlarni ko‘rish →
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="section" id="features">
+
+    <div class="section-title">
+        <h2>Hammasi bir joyda</h2>
+        <p>O‘qish uchun kerak bo‘ladigan asosiy vositalar.</p>
+    </div>
+
+    <div class="features">
+
+        <div class="card">
+            <div class="card-icon">💬</div>
+            <h3>AI Savol-javob</h3>
+            <p>
+                Tushunmagan savolingizni yozing va AI
+                mavzuni sodda va tushunarli qilib tushuntiradi.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📚</div>
+            <h3>Mavzuni tushuntirish</h3>
+            <p>
+                Murakkab mavzularni oddiy misollar yordamida
+                bosqichma-bosqich o‘rganing.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📝</div>
+            <h3>Test yaratish</h3>
+            <p>
+                Istalgan fan yoki mavzu bo‘yicha
+                avtomatik testlar yarating.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🌐</div>
+            <h3>Tarjimon</h3>
+            <p>
+                Inglizcha va o‘zbekcha matnlarni
+                tez va tushunarli tarjima qiling.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📖</div>
+            <h3>Konspekt</h3>
+            <p>
+                Uzun matnlarni qisqa va asosiy
+                ma’lumotlarga ajratib oling.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🎯</div>
+            <h3>Bilimingni tekshir</h3>
+            <p>
+                Test natijalaringiz orqali qaysi
+                mavzularda kuchli yoki zaif ekaningizni biling.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- FANLAR -->
+
+<section class="section" id="subjects">
+
+    <div class="section-title">
+        <h2>📚 Fanlar</h2>
+        <p>O‘zingizga kerakli fanni tanlang va o‘rganishni boshlang.</p>
+    </div>
+
+    <div class="subjects">
+
+        <div class="subject-card" onclick="showSubject('math')">
+            <div class="subject-icon">📐</div>
+            <h3>Matematika</h3>
+            <p>Misollar va masalalarni o‘rganish</p>
+        </div>
+
+        <div class="subject-card" onclick="showSubject('english')">
+            <div class="subject-icon">🇬🇧</div>
+            <h3>Ingliz tili</h3>
+            <p>So‘zlar va grammatika</p>
+        </div>
+
+        <div class="subject-card" onclick="showSubject('history')">
+            <div class="subject-icon">🏛️</div>
+            <h3>Tarix</h3>
+            <p>Tarixiy voqealar va shaxslar</p>
+        </div>
+
+        <div class="subject-card" onclick="showSubject('biology')">
+            <div class="subject-icon">🔬</div>
+            <h3>Biologiya</h3>
+            <p>Tabiat va tirik organizmlar</p>
+        </div>
+
+        <div class="subject-card" onclick="showSubject('geography')">
+            <div class="subject-icon">🌍</div>
+            <h3>Geografiya</h3>
+            <p>Yer va dunyo geografiyasi</p>
+        </div>
+
+        <div class="subject-card" onclick="showSubject('physics')">
+            <div class="subject-icon">⚡</div>
+            <h3>Fizika</h3>
+            <p>Kuch, energiya va harakat</p>
+        </div>
+
+    </div>
+
+    <div class="subject-result" id="subjectResult"></div>
+
+</section>
+
+<!-- AI -->
+
+<section class="section" id="ai">
+
+    <div class="section-title">
+        <h2>🤖 AI Study</h2>
+        <p>O‘zingizni qiziqtirgan savolni yozing.</p>
+    </div>
+
+    <div class="demo">
+
+        <div class="chat-top">
+
+            <div class="ai-avatar">
+                🤖
+            </div>
+
+            <div>
+                <strong>AI Study Assistant</strong><br>
+                <small>Online • O‘qishga tayyor</small>
+            </div>
+
+        </div>
+
+        <div class="message">
+            <strong>AI Study:</strong><br><br>
+            Salom! 👋 Men sizga darslarni o‘rganishda yordam beraman.
+            Menga istalgan savolingizni yozishingiz mumkin.
+        </div>
+
+        <div class="input-area">
+
+            <input
+                type="text"
+                id="question"
+                placeholder="Masalan: Fotosintez nima?"
+            >
+
+            <button class="send-btn" onclick="askAI()">
+                Yuborish
+            </button>
+
+        </div>
+
+        <div class="message" id="answer" style="display:none;"></div>
+
+    </div>
+</section>
+
+<section class="section">
+
+    <div class="stats">
+
+        <div class="stat">
+            <h3>24/7</h3>
+            <p>O‘qishga yordam</p>
+        </div>
+
+        <div class="stat">
+            <h3>6+</h3>
+            <p>Asosiy imkoniyat</p>
+        </div>
+
+        <div class="stat">
+            <h3>∞</h3>
+            <p>O‘rganish imkoniyati</p>
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    <p>
+        © 2026 <strong>AI Study</strong> —
+        Aqlli o‘qish uchun yaratilgan.
+    </p>
+</footer>
+
+<script>
+
+function showSubject(subject) {
+
+    const result = document.getElementById("subjectResult");
+
+    let content = "";
+
+    if (subject === "math") {
+
+        content =
+            "<h3>📐 Matematika</h3>" +
+            "<p>Matematika masalalari, tenglamalar va misollarni o‘rganamiz.</p>" +
+            "<br>" +
+            "<b>Misol:</b> 2x + 5 = 15<br>" +
+            "2x = 10<br>" +
+            "x = 5";
+
+    }
+
+    else if (subject === "english") {
+
+        content =
+            "<h3>🇬🇧 Ingliz tili</h3>" +
+            "<p>So‘z boyligi, grammatika va gap tuzishni o‘rganamiz.</p>" +
+            "<br>" +
+            "<b>Misol:</b> I am a student. — Men o‘quvchiman.";
+
+    }
+
+    else if (subject === "history") {
+
+        content =
+            "<h3>🏛️ Tarix</h3>" +
+            "<p>Tarixiy voqealar, davlatlar va mashhur shaxslarni o‘rganamiz.</p>";
+
+    }
+
+    else if (subject === "biology") {
+
+        content =
+            "<h3>🔬 Biologiya</h3>" +
+            "<p>Hujayra, o‘simliklar, hayvonlar va inson organizmini o‘rganamiz.</p>";
+
+    }
+
+    else if (subject === "geography") {
+
+        content =
+            "<h3>🌍 Geografiya</h3>" +
+            "<p>Mamlakatlar, qit’alar, okeanlar va Yer tabiatini o‘rganamiz.</p>";
+
+    }
+
+    else if (subject === "physics") {
+
+        content =
+            "<h3>⚡ Fizika</h3>" +
+            "<p>Kuch, tezlik, energiya, harakat va fizik hodisalarni o‘rganamiz.</p>";
+
+    }
+
+    result.innerHTML = content;
+    result.style.display = "block";
+
+    result.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+
+function askAI() {
+
+    const input = document.getElementById("question");
+    const answer = document.getElementById("answer");
+
+    const originalQuestion = input.value.trim();
+    const question = originalQuestion.toLowerCase();
+
+    if (question === "") {
+
+        answer.style.display = "block";
+
+        answer.innerHTML =
+            "<strong>🤖 AI Study:</strong><br><br>" +
+            "Avval savolingizni yozing 🙂";
+
+        return;
+    }
+
+    let result = "";
+
+    if (
+        question.includes("matematika") ||
+        question.includes("matematik") ||
+        question.includes("misol")
+    ) {
+
+        result =
+            "📐 <strong>Matematika</strong><br><br>" +
+            "Matematika masalasini bosqichma-bosqich yechishda yordam beraman.<br><br>" +
+            "Masalan: <b>2x + 5 = 15</b><br>" +
+            "2x = 10<br>" +
+            "x = 5";
+    }
+
+    else if (question.includes("fotosintez")) {
+
+        result =
+            "🌱 <strong>Fotosintez</strong><br><br>" +
+            "Fotosintez — yashil o‘simliklarning quyosh nuri yordamida " +
+            "suv va karbonat angidriddan oziqa modda hosil qilish jarayoni.<br><br>" +
+            "☀️ Quyosh nuri + 💧 suv + CO₂ → 🌱 oziqa + O₂";
+    }
+
+    else if (
+        question.includes("tarix") ||
+        question.includes("amir temur")
+    ) {
+
+        result =
+            "🏛️ <strong>Tarix</strong><br><br>" +
+            "Tarix — insoniyatning o‘tmishini o‘rganadigan fan. " +
+            "Tarixiy voqealarni o‘rganishda sana, joy, sabab va natijaga " +
+            "e’tibor berish foydali.";
+    }
+
+    else if (
+        question.includes("ingliz") ||
+        question.includes("english")
+    ) {
+
+        result =
+            "🇬🇧 <strong>Ingliz tili</strong><br><br>" +
+            "Ingliz tilini o‘rganishda so‘z boyligi, grammatika, " +
+            "tinglab tushunish va gapirishni birgalikda mashq qilish muhim.<br><br>" +
+            "Masalan: <b>I am a student.</b> — Men o‘quvchiman.";
+    }
+
+    else if (
+        question.includes("biologiya") ||
+        question.includes("hujayra")
+    ) {
+
+        result =
+            "🔬 <strong>Biologiya</strong><br><br>" +
+            "Hujayra — tirik organizmlarning asosiy tuzilish va funksional birligi.";
+    }
+
+    else if (
+        question.includes("geografiya") ||
+        question.includes("yer")
+    ) {
+
+        result =
+            "🌍 <strong>Geografiya</strong><br><br>" +
+            "Geografiya Yer yuzasi, tabiat, aholi va hududlarning " +
+            "joylashuvi hamda o‘zaro bog‘liqligini o‘rganadi.";
+    }
+
+    else if (
+        question.includes("salom") ||
+        question.includes("hello")
+    ) {
+
+        result =
+            "👋 <strong>AI Study:</strong><br><br>" +
+            "Salom! Men AI Study o‘quv yordamchisiman. " +
+            "Fan yoki mavzu haqida savol berishingiz mumkin.";
+    }
+
+    else {
+
+        result =
+            "🤖 <strong>AI Study:</strong><br><br>" +
+            "Savolingiz: <b>" + originalQuestion + "</b><br><br>" +
+            "Hozircha men <b>matematika, biologiya, tarix, geografiya, " +
+            "ingliz tili va fotosintez</b> kabi mavzularda demo yordam bera olaman.<br><br>" +
+            "💡 Savolni aniqroq yozib ko‘ring.";
+    }
+
+    answer.style.display = "block";
+    answer.innerHTML = result;
+
+    input.value = "";
+}
+
+</script>
+
+</body>
+</html>
